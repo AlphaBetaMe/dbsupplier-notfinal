@@ -31,6 +31,7 @@
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> --}}
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.min.js" integrity="sha512-WW8/jxkELe2CAiE4LvQfwm1rajOS8PHasCCx+knHG0gBHt8EXxS6T6tJRTGuDQVnluuAvMxWF4j8SNFDKceLFg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.js"></script>
@@ -331,17 +332,14 @@
           </li>
         </ul>
       </nav>
-      <div>
-        @yield('content')
-      </div>
-
+      @yield('content')
     </div>
     <!-- page-body-wrapper ends -->
   </div>
   <!-- container-scroller -->
 
   <!-- plugins:js -->
-  <script src="{{ asset('supplier/vendors/js/vendor.bundle.base.js') }}"></script>
+  <!-- FIXME: <script src="{{ asset('supplier/vendors/js/vendor.bundle.base.js') }}"></script> -->
   <!-- endinject -->
 
   <!-- Plugin js for this page -->
@@ -354,7 +352,7 @@
   <!-- inject:js -->
   <script src="{{ asset('supplier/js/off-canvas.js') }}"></script>
   <script src="{{ asset('supplier/js/hoverable-collapse.js') }}"></script>
-  <script src="{{ asset('supplier/js/template.js') }}"></script>
+  <!-- FIXME: <script src="{{ asset('supplier/js/template.js') }}"></script> -->
   <script src="{{ asset('supplier/js/settings.js') }}"></script>
   <script src="{{ asset('supplier/js/todolist.js') }}"></script>
   <!-- endinject -->
@@ -388,7 +386,6 @@
     })
   </script>
   @endif
-
 </body>
 
 </html>

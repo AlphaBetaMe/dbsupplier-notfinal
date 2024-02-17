@@ -36,10 +36,7 @@
     </div>
 </div>
 <script>
-    $(document).ready(function() {
-
-        // page is now ready, initialize the calendar...
-
+    $(document).ready(function($) {
         $('#calendar').fullCalendar({
             header: {
                 left: 'prev,next today',
@@ -59,6 +56,7 @@
                 @endforeach
             ],
             eventClick: function(calEvent, jsEvent, view) {
+                console.log('Event clicked:', calEvent);
                 $('#orderModalLabel').text('Event Details');
                 $('#orderModalBody').html('<p>Title: ' + calEvent.title + '</p>' +
                     '<p>Time: ' + calEvent.time + '</p>' +
@@ -105,8 +103,6 @@
                 element.css('color', 'black');
             }
         });
-
     });
 </script>
-
 @endsection
