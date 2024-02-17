@@ -35,5 +35,78 @@
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function() {
+
+        // page is now ready, initialize the calendar...
+
+        $('#calendar').fullCalendar({
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month,agendaWeek,agendaDay'
+            },
+            events: [
+                @foreach($events as $event) {
+                    title: '{{ $event->products->name }}',
+                    start: '{{ $event->dateofevent }}',
+                    orderId: '{{ $event->orders->id }}',
+                    description: '{{ $event->orders->fname }} {{ $event->orders->lname }}',
+                    status: '{{ $event->orders->status }}',
+                    time: '{{ $event->timeofevent }}',
+                    eventType: '{{ $event->typeofevent }}'
+                },
+                @endforeach
+            ],
+            eventClick: function(calEvent, jsEvent, view) {
+                $('#orderModalLabel').text('Event Details');
+                $('#orderModalBody').html('<p>Title: ' + calEvent.title + '</p>' +
+                    '<p>Time: ' + calEvent.time + '</p>' +
+                    '<p>Date: ' + moment(calEvent.start).format('MMMM D, YYYY') + '</p>' +
+                    '<p>Client Name: ' + calEvent.description + '</p>' +
+                    '<p>Status: ' + calEvent.status + '</p>' +
+                    '<p>Event Type: ' + calEvent.eventType + '</p>'
+                );
+
+                $.ajax({
+                    url: '/orders/' + calEvent.orderId,
+                    type: 'GET',
+                    success: function(data) {
+                        $('#orderModalBody').append('<p>Additional Detail: ' + data.trackingNumber + '</p>');
+                    },
+                    error: function(error) {
+                        console.error('Error fetching order details:', error);
+                    }
+                });
+
+                $('#orderModal').modal('show');
+            },
+            eventRender: function(event, element) {
+                var backgroundColor = '';
+
+                switch (event.status) {
+                    case 'Cancelled':
+                        backgroundColor = 'red';
+                        break;
+                    case 'Done':
+                        backgroundColor = 'green';
+                        break;
+                    case 'Verified':
+                        backgroundColor = 'yellow';
+                        break;
+                    default:
+                        backgroundColor = 'gray';
+                        break;
+                }
+
+                element.css('background-color', backgroundColor);
+                element.css('border-color', 'dark' + backgroundColor);
+                element.css('font-size', '18px');
+                element.css('color', 'black');
+            }
+        });
+
+    });
+</script>
 
 @endsection
