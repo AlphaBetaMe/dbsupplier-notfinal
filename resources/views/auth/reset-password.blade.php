@@ -9,6 +9,7 @@
         <!-- Validation Errors -->
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
+        <div class="mt-3">
         <form method="POST" action="{{ route('password.update') }}">
             @csrf
 
@@ -44,5 +45,7 @@
                 </x-button>
             </div>
         </form>
+        </div>
+       
     </x-auth-card>
 </x-guest-layout>

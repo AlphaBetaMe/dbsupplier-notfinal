@@ -1,0 +1,14 @@
+.title-logo {
+    color: #fff;
+    /* text-decoration: none; */
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* .title-logo:hover {
+    text-decoration: none;
+} */
+
+.sidebar-brand, .sidebar-brand:hover {
+    text-decoration: none;
+}

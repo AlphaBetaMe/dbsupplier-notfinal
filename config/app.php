@@ -67,7 +67,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' =>'Asia/Manila',
 
     /*
     |--------------------------------------------------------------------------
@@ -175,7 +175,9 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        Davcpas1234\LaravelPdfViewer\LaravelPdfViewerServiceProvider::class,
+        Laravel\Passport\PassportServiceProvider::class,
+        Laravel\Scout\ScoutServiceProvider::class,
+        RealRashid\SweetAlert\SweetAlertServiceProvider::class,
 
     ],
 
@@ -233,6 +235,8 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Carbon' => Illuminate\Support\Carbon::class,
         'Carbon' => 'Carbon\Carbon',
+        'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
+
         
 
     ],

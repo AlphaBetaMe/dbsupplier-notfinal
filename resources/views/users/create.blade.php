@@ -4,18 +4,6 @@
 @section('content')
 
 
-
-@if (count($errors) > 0)
-  <div class="alert alert-danger">
-    <strong>Whoops!</strong> There were some problems with your input.<br><br>
-    <ul>
-       @foreach ($errors->all() as $error)
-         <li>{{ $error }}</li>
-       @endforeach
-    </ul>
-  </div>
-@endif
-
 <div class ="py-12 mx-3 m-4">
     <div class ="card">
         <div class="card-header">
@@ -59,6 +47,20 @@
                         {!! Form::select('roles[]', $roles,[], array('class' => 'form-control','multiple')) !!}
                     </div>
                 </div>
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                    <div class="form-group">
+                        <strong>Membership Status:</strong>
+                        <select name="mstatus" class="form-control">
+                            <option value="Active">
+                                Active
+                            </option>
+                            <option value="Inactive">
+                                Inactive
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                  
                 <div class="col-xs-12 col-sm-12 col-md-12 text-center">
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </div>

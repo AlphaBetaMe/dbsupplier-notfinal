@@ -1,159 +1,221 @@
-<x-guest-layout>
-   
-    <style>
-        * {
-    padding: 0px;
-    margin: 0px;
-    overflow-x: hidden;
-}
-body {
-    
-    position:relative;
-}
-header {
-    
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 20vh;
-    box-shadow: 5px 5px 10px rgb(0,0,0,0.3);
-}
-header img{
-    width: 100%;
-    height:100%;
-}
-h1 {
-    letter-spacing: 1.5vw;
-    font-family: 'system-ui';
-    text-transform: uppercase;
-    text-align: center;
-}
-main {
-    /* position: relative; */
-    display:flex;
-    align-items: center;
-    justify-content: center;
-    height: 75vh;
-    width: 100%;
-    background: url('images/background.png') no-repeat center center;
-    background-size: cover;
-}
-footer {
-    height: 10vh;
-    background-color: grey;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: -5px -5px 10px rgb(0,0,0,0.3);
-}
-footer > p {
-    text-align: center;
-    font-family: 'system-ui';
-    letter-spacing: 3px;
-}
-footer > p > a {
-    text-decoration: none;
-    color: white;
-    font-weight: bold;
-}
+@extends('layouts.frontend')
+@section('title', 'Login')
+@section('content')
+<section class="mt-5">
+    <div class="container py-3 mt-0 mb-5">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col col-xl-8">
+                <div class="card shadow-lg" style="border-radius: 1rem;">
+                    <div class="row g-0">
+                        <div class="col-md-6 col-lg-5 d-none d-md-block">
+                            <img src="{{asset('images/logo.png')}}" alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem;  margin: 50px 15px;" />
+                        </div>
+                        <div class="col-md-6 col-lg-7 d-flex align-items-center">
+                            <div class="card-body p-4 p-lg-5 text-dark">
+                                
+                                @if(session('error'))
+                                    <div class="alert alert-danger">
+                                        {{ session('error') }}
+                                    </div>
+                                @endif
 
-main button{
-    /* position: absolute; */
-    bottom: 100px;
-    right:150px;
-    width: auto;
-    height: 50px;
-    border: 5px solid #FF7F50;
-    background-color: #FF7F50 !important;
-    box-shadow: -5px -5px 10px rgb(0,0,0,0.3);
-    font-weight:400;
-    font-size: 40px;
-    border:none;
-    
+                                <form method="POST" action="{{ route('login') }}">
+                                    @csrf
 
-}
-.modal .modal-dialog .modal-content .modal-header{
-    background-color: #FFD700 !important;
-}
-    </style>
-    <body>
-        <header>
-            <img src ="{{asset('images/ban.png')}}">
-        </header>
-        <main>
-            <!-- <button type="button" class="btn btn text-white">Log in >></button> -->
-            <br>
-            <button type="button" class="btn btn text-white" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-            Log In >>
-            </button>
+                                    <h4 class="fw-bold mb-3 pb-3 text-center">Login</h4>
 
-            <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Log in >></button> -->
+                                    <div class="mb-3">
+                                        <label class="form-label" for="form2Example17">Email Address</label>
+                                        <input id="form2Example17" placeholder="Enter your email address" type="email" class="form-control form-control-md @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                        @error('email')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
 
-        </main>
-        <footer>
-            <p></p>
-        </footer>
-        <!-- MODAL -->
-        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                <div class="modal-header">
-                    <h2 class="modal-title fs-5 text-white" id="staticBackdropLabel">LOG IN</h2>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                <x-auth-session-status class="mb-4" :status="session('status')" />
+                                    <div class="mb-3">
+                                        <label class="form-label" for="form2Example27">Password</label>
+                                        <input id="form2Example27" placeholder="Enter your password" type="password" class="form-control form-control-md @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                                        @error('password')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
 
-                <!-- Validation Errors -->
-                <x-auth-validation-errors class="mb-4" :errors="$errors" />
+                                    <div class="form-check mb-2">
+                                        <input class="form-check-input small " type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                                        <label class="form-check-label small" for="remember">{{ __('Remember Me') }}</label>
+                                    </div>
 
-                <form method="POST" action="{{ route('login') }}">
-                    @csrf
+                                    <div class="mb-3">
+                                        <button class="btn btn-dark btn-md btn-block" type="submit">Login</button>
+                                    </div>
 
-                    <!-- Email Address -->
-                    <div>
-                        <x-label for="email" :value="__('Email')" />
-
-                        <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
+                                    <div class="text-center text-custom">
+                                        @if (Route::has('password.request'))
+                                            <a class="small text-custom" href="{{ route('password.request') }}">
+                                                {{ __('Forgot Your Password?') }}
+                                            </a>
+                                        @endif
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
-
-                    <!-- Password -->
-                    <div class="mt-4">
-                        <x-label for="password" :value="__('Password')" />
-
-                        <x-input id="password" class="block mt-1 w-full"
-                                        type="password"
-                                        name="password"
-                                        required autocomplete="current-password" />
-                    </div>
-
-                    <!-- Remember Me -->
-                    <div class="block mt-4">
-                        <label for="remember_me" class="inline-flex items-center">
-                            <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" name="remember">
-                            <span class="ml-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-                        </label>
-                    </div>
-
-                    <div class="flex items-center justify-end mt-4">
-                        @if (Route::has('password.request'))
-                            <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
-                                {{ __('Forgot your password?') }}
-                            </a>
-                        @endif
-
-                        <x-button class="ml-3">
-                            {{ __('Log in') }}
-                        </x-button>
-                    </div>
-                </form>
-                </div>
                 </div>
             </div>
         </div>
-    </body>
+    </div>
+</section>
+
+@endsection
+<style>
+    .btn.btn-secondary{
+        background-color: #343a40;
+    }
+            
+    .btn-secondary:hover{
+        background-color: #ffffff !important; 
+        color: #000 !important; 
+    }
+        
+    .btn.btn-outline-secondary:hover {
+        background-color: #343a40;
+    }
     
-    
-</x-guest-layout>
+    .btn.btn-outline-secondary {
+        color: #000 !important; 
+            
+    }
+     
+    .table-striped tbody tr:nth-of-type(odd) {
+        color: #000 !important; 
+    }
+
+    .supplier-card {
+        width: 100%;
+        max-width: 400px; 
+        margin: 0 auto;
+    }
+
+    .supplier-image {
+        width: 150px; 
+        height: 150px; 
+        object-fit: cover;
+        border-radius: 50%; 
+        margin-bottom: 1rem;
+    }
+
+    .supplier-details {
+            text-align: left;
+    }
+
+    h4 {
+            margin-top: 0;
+    }
+
+    .explore-btn {
+        width: 100%;
+        color: #000; 
+    }
+
+    .explore-btn:hover {
+        color: #fff !important;
+    }
+
+    .navbar {
+        margin: 0;
+        padding: 8px 20px;    
+    }
+
+    .rounded-btn.full-width {
+        width: 100%;
+        display: block;
+    }
+
+    .navbar-nav {
+        margin: 0;
+    }
+
+    .nav-link {
+        text-decoration: none !important;
+        color: #FFFFFF !important;
+        transition: background-color 0.3s ease;
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    #navbarNav {
+        margin: 0;
+    }
+
+    #aliveLogo {
+        margin-bottom: 0;
+        margin-top: 0;
+        margin-left: 3px;
+        margin-right: 0;
+    }
+
+    #alive {
+        margin-top: 1px;
+    }
+
+    .nav-link:hover {
+      background-color: #555555;
+      border-radius: 5px;
+    }
+
+    .rounded-btn {
+      border-radius: 5px;
+      display: inline-block;
+      text-align: center;
+      text-decoration: none;
+      cursor: pointer;
+      background-color: #ffffff;
+      color: #000000 !important;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .rounded-btn:hover {
+        background-color: grey;
+        color: #ffffff !important;
+    }
+
+    .square-image {
+        width: 100px;
+        height: 100px;
+        object-fit: cover; 
+    }
+
+    .custom {
+        margin-left: 6px;
+        margin-right: 6px;
+    }
+
+    .navbar-toggler {
+        transition: background-color 0.3s ease;
+    }
+
+    .navbar-toggler:hover {
+        background-color: #555555;
+    }
+
+    .container {
+       margin-top: 10px;
+   }
+
+   .btn-dark.btn-md:hover {
+       background-color: #ffffff !important;
+       color: #000 !important; 
+   }
+
+   .text-custom:hover {
+       color: #000;
+      
+   }
+   .text-custom{
+       color: #6c757d;
+   }
+</style>

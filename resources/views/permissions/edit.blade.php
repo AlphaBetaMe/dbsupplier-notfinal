@@ -4,18 +4,6 @@
 @section('content')
 
 
-
-@if (count($errors) > 0)
-  <div class="alert alert-danger">
-    <strong>Whoops!</strong> There were some problems with your input.<br><br>
-    <ul>
-       @foreach ($errors->all() as $error)
-         <li>{{ $error }}</li>
-       @endforeach
-    </ul>
-  </div>
-@endif
-
 <div class="py-12 mx-3 m-4">
     <div class="card">
         <div class="card-header">

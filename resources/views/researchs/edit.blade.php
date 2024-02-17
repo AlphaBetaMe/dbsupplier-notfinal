@@ -38,10 +38,24 @@
                     </div>
                     <div class="mb-2">
                         <label for="status" class="col-form-label">Status:</label>
-                        <select name="researchStatus" id="" class="form-control">
+                        <select name="researchStatus" id="" class="form-select">
                             <option>{{$researchs->researchStatus}}</option>
                             <option value="Ongoing">Ongoing</option>
                             <option value="Completed">Completed</option>
+                        </select>
+                    </div>
+                    <div class="mb-2">
+                        <label for="status" class="col-form-label">Department:</label>
+                        <select name="department" id="" class="form-select">
+                            <option>{{$researchs->department}}</option>
+                                <option value="College of Engineering">College of Engineering</option>
+                                <option value="College of Administration and Accountancy">College of Administration and Accountancy</option>
+                                <option value="College of Hospitality Management Tourism">College of Hospitality Management Tourism</option>
+                                <option value="College of Teacher Education">College of Teacher Education</option>
+                                <option value="College of Industrial Technology">College of Industrial Technology</option>
+                                <option value="College of Computer Studies">College of Computer Studies</option>
+                                <option value="College of Criminal Justice Education">College of Criminal Justice Education</option>
+                                <option value="College of Art and Sciences">College of Art and Sciences</option>
                         </select>
                     </div>
                     <div class="mb-2">

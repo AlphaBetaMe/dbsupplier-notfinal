@@ -12,8 +12,8 @@ class AuditController extends Controller
     public function index(Request $request)
     {
         $search = $request->get('search');
-        $audit_trails = DB::table('audit_trails')->where('name', 'like','%' .$search. '%')->paginate(10);
-        return view('logs.index', ['audit_trails' => $audit_trails])
+        $audit_trails = DB::table('audit_trails')->where('name', 'like','%' .$search. '%')->orderBy('created_at', 'desc')->paginate(10);
+        return view('admin.logs.index', ['audit_trails' => $audit_trails])
         ->with('i', ($request->input('page', 1) - 1) * 10);
         
         // AuditTrail::all();

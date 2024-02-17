@@ -27,7 +27,9 @@
         <div class="card">
             <div class="card-header">
                 <strong class="lead d-inline">List of Research</strong>
+                <!-- @can('research-create')
                 <button type="button" class="btn btn-success btn-sm float-right" data-toggle="modal" data-target="#exampleModal"><span class="bi bi-plus-circle-dotted">&nbsp Add new research</span></button>
+                @endcan -->
                 <br><br>
                 <form method="GET">
                     <div class="input-group mb-3">
@@ -53,7 +55,10 @@
                                 <th>Description</th>
                                 <th>Author/s</th>
                                 <th>Status</th>
+                                <th>Remarks</th>
                                 <th>File</th>
+                                <th>Created Date</th>
+                                <th>Approved Date</th>
                                 <th>Action</th>
                             </thead>
                         </tr>
@@ -62,82 +67,43 @@
                             <td>{{$file->researchTitle}}</td>
                             <td>{{$file->researchDescription}}</td>
                             <td>{{$file->author}}</td>
-                            <td>{{$file->researchStatus}}</td>
+                            <td><span class="badge badge-success">{{$file->researchStatus}}</span></td>
+                            <td><span class="badge badge-warning">{{$file->remarks}}</span></td>
+
                             <td>{{$file->file}}</td>
+                            <td>{{$file->created_at}}</td>
+                            <td>{{$file->approved_at}}</td>
                             <td>
                                 <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                                    @can('research-download')
                                     <a href="{{ route('download',$file->file) }}" class="btn btn-info btn-action">Download</a>
+                                    @endcan
+                                    @can('research-prev')
                                     <a href="{{ asset('/laraview/#../assets/'.$file->file) }}" class="btn btn-warning btn-action">Preview</a>
+                                    @endcan
+                                    @can('research-edit')
                                     <a href="{{route('researchs.edit', $file->id)}}" class="btn btn-success btn-action btn-lock">Edit</a>
+                                    @endcan
+                                    @can('researcht-del')
                                     <a href="{{route('researchs.destroy', $file->id)}}" class="btn btn-danger btn-action btn-lock">Delete</a>
-                                    
+                                    @endcan
                                 </div>
                             </td>
                         </tr>
                         @endforeach
+
                     </table>
+
+                    <div class="d-flex">
+               
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<!--Modal-->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Add new research</h5>
-                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form action ="{{route('researchs.store')}}" method="post" enctype="multipart/form-data">
-                    @csrf
-                    <div class="mb-2">
-                        <label for="researchTitle" class="col-form-label">Research Title:</label>
-                        <input type="text" name="researchTitle" required  class="form-control">
-                    </div>
-                    <div class="mb-2">
-                        <label for="researchDescription" class="col-form-label">Research Description:</label>
-                        <textarea name="researchDescription" id="" cols="30" rows="3" required  class="form-control"></textarea>
-                    </div>
-                    <div class="mb-2">
-                        <label for="author" class="col-form-label">Author:</label>
-                        <input type="text" required  name="author" class="form-control">
-                    </div>
 
-                    <div class="mb-2">
-                        <label for="file" class="col-form-label">File:</label>
-                        <input type="file" required  class="form-control" name="file">
-                    </div>
-                    <div class="mb-2">
-                        <label for="status" class="col-form-label">Status:</label>
-                        <select name="researchStatus" id="" required class="form-control">
-                            <option value="Ongoing">Ongoing</option>
-                            <option value="Completed">Completed</option>
-                        </select>
-                    </div>
-                    <div class="mb-2">
-                        <label for="meta_title" required class="col-form-label">Meta Title</label>
-                        <input type="text" class="form-control" name="meta_title">
-                    </div>
-                    <div class="mb-2">
-                        <label for="" class="col-form-label">Meta Keywords</label>
-                        <textarea name="meta_keywords" id="" cols="30" rows="2" required class="form-control"></textarea>
-                    </div>
-                    <div class="mb-2">
-                        <label for="" class="col-form-label">Meta Description</label>
-                        <textarea name="meta_description" id="" cols="30" rows="2" required class="form-control"></textarea>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
 
 
 @endsection

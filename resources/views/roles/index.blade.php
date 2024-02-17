@@ -3,7 +3,70 @@
 
 @section('content')
 
+<style>
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: #D2E0FB;
+    }
+    .btn-primary,
+    .btn-primary:hover,
+    .btn-primary:active,
+    .btn-primary:focus,
+    a.btn-primary,
+    a.btn-primary:hover,
+    a.btn-primary:active,
+    a.btn-primary:focus {
+        background-color: #000000;
+        border-color: #000000;
+        color: #fff; /* Set text color to white or any other color that contrasts well with the background */
+    }
 
+    .btn-danger,
+    .btn-danger:hover,
+    .btn-danger:active,
+    .btn-danger:focus,
+    .a.btn-danger,
+    .a.btn-danger:hover,
+    .a.btn-danger:active,
+    .a.btn-danger:focus {
+       background-color: #000000;
+        border-color: #000000;
+        color: #fff;  /* Set text color to white or any other color that contrasts well with the background */
+    }
+    
+     .btn-success,
+    .btn-success:hover,
+    .btn-success:active,
+    .btn-success:focus,
+    .a.btn-success,
+    .a.btn-success:hover,
+    .a.btn-success:active,
+    .a.btn-success:focus {
+       background-color: #000000;
+        border-color: #000000;
+        color: #fff;  /* Set text color to white or any other color that contrasts well with the background */
+    }
+    
+    .btn-info,
+    .btn-info:hover,
+    .btn-info:active,
+    .btn-info:focus,
+    .a.btn-info,
+    .a.btn-info:hover,
+    .a.btn-info:active,
+    .a.btn-info:focus {
+       background-color: #000000;
+        border-color: #000000;
+        color: #fff;  /* Set text color to white or any other color that contrasts well with the background */
+    }
+    .btn-danger,
+.btn-danger:hover,
+.btn-danger:active,
+.btn-danger:focus {
+    background-color: #000000;
+        border-color: #0000000;
+        color: #fff; 
+}
+</style>
 @if ($message = Session::get('success'))
     <div class="alert alert-success">
         <p>{{ $message }}</p>
@@ -23,7 +86,7 @@
             </div>
         </div>
         <div class="card-body">
-            <table class="table table-striped table-hover table-condensed">
+            <table class="table table-striped table-hover table-condensed table-striped">
                 <tr>
                     <thead class="thead-dark">
                     <th>No</th>

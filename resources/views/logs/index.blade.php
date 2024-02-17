@@ -1,7 +1,70 @@
 @extends('layouts.sample')
 
 @section('content')
+<style>
+       .table-striped tbody tr:nth-of-type(odd) {
+        background-color: #D2E0FB;
+    }
+    .btn-primary,
+    .btn-primary:hover,
+    .btn-primary:active,
+    .btn-primary:focus,
+    a.btn-primary,
+    a.btn-primary:hover,
+    a.btn-primary:active,
+    a.btn-primary:focus {
+        background-color: #000000;
+        border-color: #000000;
+        color: #fff; /* Set text color to white or any other color that contrasts well with the background */
+    }
 
+    .btn-danger,
+    .btn-danger:hover,
+    .btn-danger:active,
+    .btn-danger:focus,
+    .a.btn-danger,
+    .a.btn-danger:hover,
+    .a.btn-danger:active,
+    .a.btn-danger:focus {
+       background-color: #000000;
+        border-color: #000000;
+        color: #fff;  /* Set text color to white or any other color that contrasts well with the background */
+    }
+    
+     .btn-success,
+    .btn-success:hover,
+    .btn-success:active,
+    .btn-success:focus,
+    .a.btn-success,
+    .a.btn-success:hover,
+    .a.btn-success:active,
+    .a.btn-success:focus {
+       background-color: #000000;
+        border-color: #000000;
+        color: #fff;  /* Set text color to white or any other color that contrasts well with the background */
+    }
+    
+    .btn-info,
+    .btn-info:hover,
+    .btn-info:active,
+    .btn-info:focus,
+    .a.btn-info,
+    .a.btn-info:hover,
+    .a.btn-info:active,
+    .a.btn-info:focus {
+       background-color: #000000;
+        border-color: #000000;
+        color: #fff;  /* Set text color to white or any other color that contrasts well with the background */
+    }
+    .btn-danger,
+.btn-danger:hover,
+.btn-danger:active,
+.btn-danger:focus {
+    background-color: #000000;
+        border-color: #0000000;
+        color: #fff; 
+}
+</style>
 
 <div class ="py-12 m-4">
     <div class ="card">
@@ -35,8 +98,6 @@
                             <th scope="col" width="10%">Name </th>
                             <th scope="col" width="15%">Date</th>
                             <th scope="col" width="50%">Activity</th>
-                            <th scope="col" width=" ">Actions</th>
-                            
                         </tr>
                     </thead>
                     <tbody>
@@ -45,13 +106,8 @@
                                     
                                 <td>{{++$i}}</td>              
                                 <td scope="row">{{ $audit->name}}</td>
-                                <td scope="row">{{ $audit->date}}</td>
+                                <td scope="row">{{ $audit->created_at}}</td>
                                 <td scope="row">{{ $audit->activity}}</td>
-                                <td>
-                                    <a href="" class="btn btn-warning btn-sm"><span class="bi-eye-fill"></a>
-                                    <a href="" class="btn btn-info btn-sm"><span class="bi-plus"></a>
-                                    
-                                </td>
                             </tr>
                         @endforeach
                     </tbody>

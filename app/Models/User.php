@@ -9,7 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
@@ -21,7 +21,11 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'lname',
+        'dob',
         'password',
+        'role_as',
+        'mstatus'
     ];
 
     /**
@@ -65,4 +69,23 @@ class User extends Authenticatable
          AuditTrail::query()->create($data);
     }
 
+    public function timeLogs()
+{
+    return $this->hasMany(AttendanceLog::class);
+}
+
+    public function carts()
+    {
+        return $this->hasMany(Cart::class,'user_id', 'id');
+    }
+
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'user_id');
+    }
+    
+
+    
+
+    
 }

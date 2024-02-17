@@ -15,6 +15,7 @@ class Research extends Model
         'researchDescription',
         'author',
         'researchStatus',
+        'department',
         'meta_title',
         'meta_keywords',
         'meta_description'
@@ -24,11 +25,15 @@ class Research extends Model
     protected $table ='research';
 
     protected $fillable =[
+        'user_id',
         'researchTitle',
         'researchDescription',
         'author',
         'file',
         'researchStatus',
+        'department',
+        'approved_at',
+        'remarks',
         'meta_title',
         'meta_keywords',
         'meta_description'
@@ -40,10 +45,12 @@ class Research extends Model
         'researchTitle' =>$this->researchTitle,
         'researchDescription'=>$this->researchDescription,
         'author'=>$this->author,
+        'department'=>$this->department,
         'researchStatus'=>$this->researchStatus,
         'meta_title'=>$this->meta_title,
         'meta_keywords'=>$this->meta_keywords,
         'meta_description'=>$this->meta_description,
         ];
     }
+
 }

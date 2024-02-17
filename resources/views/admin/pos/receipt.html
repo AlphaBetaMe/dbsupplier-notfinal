@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Norman Invoice POS</title>
+    <style>
+        #invoicePos{
+            box-shadow: 0 0 1in -0.25in rgb(0, 0,0.5);
+            padding:2mm;
+            margin:0 auto;
+            width:75mm;
+            background: #fff;
+        }
+        #invoicePos::selection{
+            background: #f315f3;
+            color:#fff;
+        }
+        #invoicePos ::-moz-selection{
+            background: #410941;
+            color:#fff; 
+        }
+        #invoicePos h2{
+            font-size: 1.2em;
+           
+        }
+        #invoicePos h4{
+            font-size: 0.9em;
+            color: #222;
+        }
+        #invoicePos p{
+            font-size: 0.6em;
+            line-height: 1.1em;
+            color: #666;
+        }
+        #invoicePos #top, #invoicePos #mid, #invoicePos #bottom
+        {
+            border-bottom:1px solid #eee;
+        }
+
+        #invoicePos .top{
+            min-height: 100px;
+        }
+        #invoicePos .mid{
+            min-height: 80px;
+        }
+        #invoicePos .bottom{
+            min-height: 50px;
+        }
+
+        #invoicePos .bottom .legalcopy{
+            min-height: 50px;
+            display: block;
+            margin-left: 0;
+            text-align: center;
+        }
+        #invoicePos .mid .info
+        {
+            display: block;
+            margin-left: 0;
+            text-align: center;
+        }
+        #invoicePos table{
+            width:100%;
+            border-collapse:collapse;
+        }
+        #invoicePos .tabletitle{
+            font-size:0.8em;
+            background: #eee;
+        }
+        #invoicePos .item{
+            width: 24mm;
+        }
+        #invoicePos .itemtext{
+            width: 0.5em;
+        }
+    </style>
+</head>
+<body>
+    <div class="" id="invoicePos">
+        <div id="top">
+            <center>
+                <div class="logo">
+                    <img src="\public\assets\Logo1.jpg" style="width:150px;">
+                </div>
+                <div class="info"></div>
+                <h2>Norman Cellphone and Accessories</h2>
+            </center>
+        </div>
+        
+        <div class="mid">
+            <div class="info">
+                <h4>Contact Details</h4>
+                <p>
+                    Address: Madela Public Market , Madela, Quirino<br>
+                    Facebook Page: Apple E Dug-a<br>
+                    Phone Number: 09659368650/0961258332
+                </p>
+            </div>
+        </div>
+        <!-- End of receipt -->
+        <div class="bottom">
+            <div class="" id="table">
+                <table>
+                    <tr class="tabletitle">
+                        <td class="item">Item</td>
+                        <td class="Hours">Qty</td>
+                        <td class="Rate">Unit</td>
+                        <td class="Rate">Discount</td>
+                        <td class="Rate">Sub Total</td>
+                    </tr>
+                    <tr class="service">
+                        <td class="tableitem"><p class="itemtext">sample</p></td>
+                        <td class="tableitem"><p class="itemtext">12</p></td>
+                        <td class="tableitem"><p class="itemtext">unit</p></td>
+                        <td class="tableitem"><p class="itemtext">10</p></td>
+                        <td class="tableitem"><p class="itemtext">100</p></td>
+                    </tr>
+                    <tr class="tabletitle">
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td class="Rate">Tax</td>
+                        <td class="Payment">100</td>
+                    </tr>
+                    <tr class="tabletitle">
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td class="Rate">TOTAL</td>
+                        <td class="Payment">
+                            <h2></h2>
+                         </td>
+                    </tr>
+                </table>
+                <div class="legalcopy">
+                    <p>
+                        <strong>*** Thank you for your visiting ***</strong><br>
+                        <label>Proverbs 16:9 :</label>
+                        <label>Commit to the lord whatever you do and your plans will succeed.</label>
+                    </p>
+                </div>
+                <div class="serial-number">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

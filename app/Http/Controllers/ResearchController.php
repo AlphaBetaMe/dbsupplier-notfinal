@@ -12,6 +12,11 @@ use Illuminate\Support\Facades\File;
 
 use Illuminate\Http\Request;
 use PDF;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Auth;
+use App\Exports\ResearchExport;
+use App\Exports\RdoResearchExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 
 
@@ -24,14 +29,23 @@ class ResearchController extends Controller
      */
     public function index(Request $request)
     {
+       $forApprove = Research::where('remarks','=','For Approval')->count();
         $user = User::find(1);
         // $researchs = Research::all();
         if($request->filled('search')){
-            $researchs = Research::search($request->search)->get();
+            $researchs = Research::search($request->search)->where('remarks','Approved')->get();
         }else{
-            $researchs = Research::get();
+            $researchs = Research::where('remarks', '=','Approved')->Where('researchStatus','Completed')->paginate(5);
         }
-        return view('researchs.index', compact('researchs', 'user'));
+
+        return view('researchs.index', compact('researchs', 'user','forApprove'));
+    }
+    public function myResearch()
+    {
+        $userId = Auth::user()->id;
+        $researchs = Research::where('user_id',$userId)->get();
+
+        return view('researchs.myResearch', compact('researchs', 'userId'));
     }
 
     /**
@@ -56,42 +70,46 @@ class ResearchController extends Controller
         $this->validate($request,[
 
             'researchTitle' => 'required',
-            'researchTitle' => 'required',
-            'researchDescriptiom' => 'required',
+            'researchDescription' => 'required',
             'author' => 'required',
             'researchStatus' => 'required',
             'meta_title' => 'required',
             'meta_keywords' => 'required',
             'meta_description' => 'required',
         ]);
+        $userLog = Auth::user();
         $user = User::all();
         $data = new Research();
 
-        // $file=$request->file;
-        // $filename=time().'.'.$file->getClientOriginalExtension();
-        // $request->file->move('assets',$filename);
-        // $data->file=$filename;
+        $file=$request->file;
+        $filename=time().'.'.$file->getClientOriginalExtension();
+        $request->file->move('assets',$filename);
+        $data->file=$filename;
 
-        if($request->hasFile('file'))
-        {
-            $file = $request->file('file');
-            $ext = $file->getClientOriginalExtension();
-            $filename = time() .'.'. $ext;
-            $file->move('assets', $filename);
-            $data->file = $filename;
-        }
-
+        // if($request->hasFile('file'))
+        // {
+        //     $file = $request->file('file');
+        //     $ext = $file->getClientOriginalExtension();
+        //     $filename = time() .'.'. $ext;
+        //     $file->move('assets', $filename);
+        //     $data->file = $filename;
+        // }
+        $data->user_id=Auth::user()->id;
         $data->researchTitle=$request->researchTitle;
         $data->researchDescription=$request->researchDescription;
         $data->author=$request->author;
         $data->researchStatus=$request->researchStatus;
+        $data->department=$request->department;
+        $data->remarks=$request->remarks;
         $data->meta_title=$request->meta_title;
         $data->meta_keywords=$request->meta_keywords;
         $data->meta_description=$request->meta_description;
 
         $data->save();
+
+        $userLog->log("Added a new research");
         Notification::send($user, new ResearchNotification($request->researchTitle));
-        return redirect()->route('researchs.index')
+        return redirect()->route('researchs.myResearch')
                         ->with('success', 'Added new research successfully');
     }
 
@@ -128,6 +146,7 @@ class ResearchController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $userLog = Auth::user();
         $data =Research::find($id);
 
         // $file=$request->file;
@@ -153,11 +172,14 @@ class ResearchController extends Controller
         $data->researchDescription=$request->researchDescription;
         $data->author=$request->author;
         $data->researchStatus=$request->researchStatus;
+        $data->department=$request->department;
         $data->meta_title=$request->meta_title;
         $data->meta_keywords=$request->meta_keywords;
         $data->meta_description=$request->meta_description;
 
         $data->save();
+
+        $userLog->log("Updated a research");
 
         return redirect()->route('researchs.index')
                         ->with('success','Research Updated Successfully');
@@ -205,5 +227,100 @@ class ResearchController extends Controller
             $data->delete();
             return redirect()->route('researchs.index')
                         ->with('success','Research Deleted Successfully');
+    }
+    //RIU
+    public function researchApprove()
+    {
+        
+        $userDep = Auth::user()->department;
+        $researchs = Research::where([['department', $userDep],['remarks', '=','For RIU Approval']])->get();
+
+        return view('researchs.researchApprove', compact('researchs'));
+    }
+
+    public function researchApproved($id)
+    {
+        
+        $userLog =Auth::user();
+
+        $researchs=Research::findOrFail($id);
+        $researchs->update(['approved_at' => now()]);
+        $researchs->update(['remarks' =>'For RDO Approval']);
+        $userLog->log("Updated a status research(Research Approved by College RIU)");
+
+        return redirect()->route('researchApprove')->with('success','Research approved successfully');
+    }
+    public function researchDisapproved($id)
+    {
+        $userLog = Auth::user();
+
+        $researchs=Research::findOrFail($id);
+        $researchs->update(['approved_at' =>'']);
+        $researchs->update(['remarks' =>'RIU Disapproved']);
+
+        $userLog->log("Updated a status research(Research Dispproved by College RIU)");
+
+        return redirect()->route('researchApprove')->with('success','Research disapproved successfully');
+    }
+    //RDO
+    public function rdoresearchApprove()
+    {
+        $researchs = Research::where('remarks','=','For RDO Approval')->get();
+
+        return view('researchs.rdoApproval', compact('researchs'));
+    }
+
+    public function rdoresearchApproved($id)
+    {
+        $userLog=Auth::user();
+        $researchs=Research::findOrFail($id);
+        $researchs->update(['rodapproved_at' => now()]);
+        $researchs->update(['remarks' =>'Approved']);
+
+        $userLog->log("Updated a status research(Research Approved by RDO)");
+
+        return redirect()->route('rdoresearchApprove')->with('success','Research approved successfully');
+    }
+    public function rdoresearchDisapproved($id)
+    {
+        $userLog=Auth::user();
+        $researchs=Research::findOrFail($id);
+        $researchs->update(['approved_at' =>'']);
+        $researchs->update(['remarks' =>'RDO Disapproved']);
+        $userLog->log("Updated a status research(Research Disapproved by RDO)");
+        return redirect()->route('rdoresearchApprove')->with('success','Research disapproved successfully');
+    }
+   
+
+    public function exportresearch()
+    {
+        $userDep = Auth::user()->department;
+        $researchs = Research::where('department', $userDep)->get();
+
+        return view('researchs.exportResearch', compact('researchs', 'userDep'));
+    }
+
+    public function export()
+    {
+        $userDep = Auth::user()->department;
+        $researchs = Research::where('department',$userDep)->get();
+        // return Excel::download(new ResearchExport,'researchs.xlsx');
+        
+        return Excel::download(new ResearchExport($userDep,$researchs), 'researchs.xlsx');
+    }
+
+    public function rdoexportresearch()
+    {
+        $researchs=Research::where('remarks','=','Approved')->get();
+
+        return view('researchs.rdoexportResearch', compact('researchs'));
+
+    }
+
+    public function rdoexport()
+    {
+        $researchs=Research::where('remarks','=','Approved')->get();
+
+        return Excel::download(new RdoResearchExport($researchs),'RDOresearch.xlsx');
     }
 }

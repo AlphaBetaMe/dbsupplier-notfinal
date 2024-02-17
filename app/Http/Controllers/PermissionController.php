@@ -22,7 +22,7 @@ class PermissionController extends Controller
     public function create()
     {
         $permissions = Permission::pluck('name', 'name')->all();
-        return view('permissions.create',compact('permissions'));
+        return view('admin.permissions.create',compact('permissions'));
     }
     
     public function store(Request $request)
@@ -36,14 +36,14 @@ class PermissionController extends Controller
     
 
         return redirect()->route('permissions.index')
-                        ->with('success'.'Permission created successfully');
+                        ->with('success', 'Permission created successfully');
     }
 
     public function edit($id)
     {
         $permissions = Permission::find($id);
 
-        return view('permissions.edit', compact('permissions'));
+        return view('admin.permissions.edit', compact('permissions'));
     }
 
     public function update(Request $request, $id)
@@ -80,16 +80,21 @@ class PermissionController extends Controller
 
 
 
-                return view('permissions.index', compact('permissions'))
+                return view('admin.permissions.index', compact('permissions'))
                     ->with('i', ($request->input('page', 1) -1) * 5);
 
     }
-
+    
     public function destroy($id)
     {
-        DB::table("permissions")->where('id',$id)->delete();
-        return redirect()->route('permissions.index')
-                        ->with('success','Permissions deleted successfully');
+        $permissions = Permission::findOrFail($id);
+        
+        $permissions->delete();
+        
+         return redirect()->route('permissions.index')
+                        ->with('success','Permission deleted successfully');
     }
+
+    
 
 }
