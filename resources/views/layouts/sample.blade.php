@@ -31,6 +31,7 @@
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> --}}
 
+  <script src="{{ asset('supplier/vendors/js/vendor.bundle.base.js') }}"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.min.js" integrity="sha512-WW8/jxkELe2CAiE4LvQfwm1rajOS8PHasCCx+knHG0gBHt8EXxS6T6tJRTGuDQVnluuAvMxWF4j8SNFDKceLFg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
@@ -339,7 +340,7 @@
   <!-- container-scroller -->
 
   <!-- plugins:js -->
-  <!-- FIXME: <script src="{{ asset('supplier/vendors/js/vendor.bundle.base.js') }}"></script> -->
+  <!-- <script src="{{ asset('supplier/vendors/js/vendor.bundle.base.js') }}"></script> -->
   <!-- endinject -->
 
   <!-- Plugin js for this page -->
