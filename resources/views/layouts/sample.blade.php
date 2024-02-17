@@ -30,7 +30,13 @@
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> --}}
- 
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.1.0/fullcalendar.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="css/admin-main.css">
+
 </head>
 
 <body>
@@ -38,10 +44,10 @@
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo mr-5" href="{{ url('supplier/dashboard') }}"><img src="{{asset('images/logo.png')}}" alt="logo"/>
+        <a class="navbar-brand brand-logo mr-5" href="{{ url('supplier/dashboard') }}"><img src="{{asset('images/logo.png')}}" alt="logo" />
           <span style="font-family:Arial, Helvetica, sans-serif; text-decoration:none; font-size:20px;">Alive</span>
         </a>
-        <a class="navbar-brand brand-logo-mini" href="{{ url('supplier/dashboard') }}"><img src="{{asset('images/logo.png')}}" alt="logo"/></a>
+        <a class="navbar-brand brand-logo-mini" href="{{ url('supplier/dashboard') }}"><img src="{{asset('images/logo.png')}}" alt="logo" /></a>
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
         <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -51,7 +57,7 @@
         <ul class="navbar-nav navbar-nav-right">
           <li class="nav-item nav-profile dropdown">
             <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-              <img src="{{ asset('assets/uploads/profile/' . auth()->user()->image) }}" alt="profile"/>
+              <img src="{{ asset('assets/uploads/profile/' . auth()->user()->image) }}" alt="profile" />
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
               <a class="dropdown-item">
@@ -60,11 +66,11 @@
               </a>
               <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                 @csrf
-            </form>
-            <a class="dropdown-item" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+              </form>
+              <a class="dropdown-item" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                 <i class="ti-power-off text-primary"></i>
                 Logout
-            </a>            
+              </a>
             </div>
           </li>
           {{-- <li class="nav-item nav-settings d-none d-lg-flex">
@@ -86,8 +92,12 @@
         <div id="theme-settings" class="settings-panel">
           <i class="settings-close ti-close"></i>
           <p class="settings-heading">SIDEBAR SKINS</p>
-          <div class="sidebar-bg-options selected" id="sidebar-light-theme"><div class="img-ss rounded-circle bg-light border mr-3"></div>Light</div>
-          <div class="sidebar-bg-options" id="sidebar-dark-theme"><div class="img-ss rounded-circle bg-dark border mr-3"></div>Dark</div>
+          <div class="sidebar-bg-options selected" id="sidebar-light-theme">
+            <div class="img-ss rounded-circle bg-light border mr-3"></div>Light
+          </div>
+          <div class="sidebar-bg-options" id="sidebar-dark-theme">
+            <div class="img-ss rounded-circle bg-dark border mr-3"></div>Dark
+          </div>
           <p class="settings-heading mt-2">HEADER SKINS</p>
           <div class="color-tiles mx-0 px-4">
             <div class="tiles success"></div>
@@ -274,7 +284,7 @@
               </ul>
             </div>
           </li>
-       <li class="nav-item">
+          <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#payment" aria-expanded="false" aria-controls="payment">
               <i class="fa fa-credit-card menu-icon"></i>
               <span class="menu-title">Payment Methods</span>
@@ -300,7 +310,7 @@
               </ul>
             </div>
           </li>
-       
+
           <li class="nav-item">
             <a class="nav-link" href="{{ route('timelines.index') }}">
               <i class="fa fa-clock-o menu-icon"></i>
@@ -321,14 +331,17 @@
           </li>
         </ul>
       </nav>
-      @yield('content')
-    </div>   
+      <div>
+        @yield('content')
+      </div>
+
+    </div>
     <!-- page-body-wrapper ends -->
   </div>
   <!-- container-scroller -->
 
   <!-- plugins:js -->
-  <script src="{{ asset('supplier/vendors/js/vendor.bundle.base.js') }}"></script>
+  <!-- FIXME: <script src="{{ asset('supplier/vendors/js/vendor.bundle.base.js') }}"></script> -->
   <!-- endinject -->
 
   <!-- Plugin js for this page -->
@@ -341,7 +354,7 @@
   <!-- inject:js -->
   <script src="{{ asset('supplier/js/off-canvas.js') }}"></script>
   <script src="{{ asset('supplier/js/hoverable-collapse.js') }}"></script>
-  <script src="{{ asset('supplier/js/template.js') }}"></script>
+  <!-- FIXME: <script src="{{ asset('supplier/js/template.js') }}"></script> -->
   <script src="{{ asset('supplier/js/settings.js') }}"></script>
   <script src="{{ asset('supplier/js/todolist.js') }}"></script>
   <!-- endinject -->
@@ -350,29 +363,104 @@
   <script src="{{ asset('supplier/js/dashboard.js') }}"></script>
   <script src="{{ asset('js/Chart.roundedBarCharts.js') }}"></script>
   <!-- End custom js for this page-->
-       
+
 
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
   @if (session('success'))
-      <script>
-      Swal.fire(
-          '',
-          '{{ session('success') }}',
-          'success'
-      )
-      </script>
+  <script>
+    Swal.fire(
+      '',
+      '{{ session('
+      success ') }}',
+      'success'
+    )
+  </script>
   @endif
-  
+
 
   @if (session('error'))
   <script>
-  Swal.fire({
-  icon: 'error',
-  text: '{{ session('error') }}',
-  })
+    Swal.fire({
+      icon: 'error',
+      text: '{{ session('
+      error ') }}',
+    })
   </script>
   @endif
-    </body>
+  <script>
+    $(document).ready(function() {
+
+      // page is now ready, initialize the calendar...
+
+      $('#calendar').fullCalendar({
+        header: {
+          left: 'prev,next today',
+          center: 'title',
+          right: 'month,agendaWeek,agendaDay'
+        },
+        events: [
+          @foreach($events as $event) {
+            title: '{{ $event->products->name }}',
+            start: '{{ $event->dateofevent }}',
+            orderId: '{{ $event->orders->id }}',
+            description: '{{ $event->orders->fname }} {{ $event->orders->lname }}',
+            status: '{{ $event->orders->status }}',
+            time: '{{ $event->timeofevent }}',
+            eventType: '{{ $event->typeofevent }}'
+          },
+          @endforeach
+        ],
+        eventClick: function(calEvent, jsEvent, view) {
+          $('#orderModalLabel').text('Event Details');
+          $('#orderModalBody').html('<p>Title: ' + calEvent.title + '</p>' +
+            '<p>Time: ' + calEvent.time + '</p>' +
+            '<p>Date: ' + moment(calEvent.start).format('MMMM D, YYYY') + '</p>' +
+            '<p>Client Name: ' + calEvent.description + '</p>' +
+            '<p>Status: ' + calEvent.status + '</p>' +
+            '<p>Event Type: ' + calEvent.eventType + '</p>'
+          );
+
+          $.ajax({
+            url: '/orders/' + calEvent.orderId,
+            type: 'GET',
+            success: function(data) {
+              $('#orderModalBody').append('<p>Additional Detail: ' + data.trackingNumber + '</p>');
+            },
+            error: function(error) {
+              console.error('Error fetching order details:', error);
+            }
+          });
+
+          $('#orderModal').modal('show');
+        },
+        eventRender: function(event, element) {
+          var backgroundColor = '';
+
+          switch (event.status) {
+            case 'Cancelled':
+              backgroundColor = 'red';
+              break;
+            case 'Done':
+              backgroundColor = 'green';
+              break;
+            case 'Verified':
+              backgroundColor = 'yellow';
+              break;
+            default:
+              backgroundColor = 'gray';
+              break;
+          }
+
+          element.css('background-color', backgroundColor);
+          element.css('border-color', 'dark' + backgroundColor);
+          element.css('font-size', '18px');
+          element.css('color', 'black');
+        }
+      });
+
+    });
+  </script>
+</body>
 
 </html>
