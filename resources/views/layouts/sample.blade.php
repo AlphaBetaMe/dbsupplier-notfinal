@@ -341,7 +341,7 @@
   <!-- container-scroller -->
 
   <!-- plugins:js -->
-  <!-- FIXME: <script src="{{ asset('supplier/vendors/js/vendor.bundle.base.js') }}"></script> -->
+  <script src="{{ asset('supplier/vendors/js/vendor.bundle.base.js') }}"></script>
   <!-- endinject -->
 
   <!-- Plugin js for this page -->
@@ -354,7 +354,7 @@
   <!-- inject:js -->
   <script src="{{ asset('supplier/js/off-canvas.js') }}"></script>
   <script src="{{ asset('supplier/js/hoverable-collapse.js') }}"></script>
-  <!-- FIXME: <script src="{{ asset('supplier/js/template.js') }}"></script> -->
+  <script src="{{ asset('supplier/js/template.js') }}"></script>
   <script src="{{ asset('supplier/js/settings.js') }}"></script>
   <script src="{{ asset('supplier/js/todolist.js') }}"></script>
   <!-- endinject -->
