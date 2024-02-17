@@ -339,7 +339,7 @@
   <!-- container-scroller -->
 
   <!-- plugins:js -->
-  <script src="{{ asset('supplier/vendors/js/vendor.bundle.base.js') }}"></script>
+  <!-- FIXME: <script src="{{ asset('supplier/vendors/js/vendor.bundle.base.js') }}"></script> -->
   <!-- endinject -->
 
   <!-- Plugin js for this page -->
