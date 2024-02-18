@@ -106,7 +106,7 @@ Route::middleware(['auth'])->group(function () {
     // Route::put('admin/product/update/{id}', [App\Http\Controllers\Admin\ProductController::class, 'update'])->name('products.update');
     // Route::get('admin/product/destroy/{id}',[App\Http\Controllers\Admin\ProductController::class, 'destroy'])->name('products.destroy');
     Route::get('supplier/products', [App\Http\Controllers\Admin\ProductController::class, 'index'])->name('products.index');
-    Route::get('supplier/products/create', [App\Http\Controllers\Admin\ProductController::class, 'create'])->name('products.create');
+    Route::get('supplier/products/create-service', [App\Http\Controllers\Admin\ProductController::class, 'create'])->name('products.create');
     Route::post('supplier/products/create', [App\Http\Controllers\Admin\ProductController::class, 'store'])->name('products.store');
     Route::get('supplier/products/edit/{id}', [App\Http\Controllers\Admin\ProductController::class, 'edit'])->name('products.edit');
     Route::put('supplier/product/update/{id}', [App\Http\Controllers\Admin\ProductController::class, 'update'])->name('products.update');
