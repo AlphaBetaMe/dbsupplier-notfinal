@@ -56,7 +56,6 @@
                 @endforeach
             ],
             eventClick: function(calEvent, jsEvent, view) {
-                console.log('Event clicked:', calEvent);
                 $('#orderModalLabel').text('Event Details');
                 $('#orderModalBody').html('<p>Title: ' + calEvent.title + '</p>' +
                     '<p>Time: ' + calEvent.time + '</p>' +
@@ -67,8 +66,11 @@
                 );
 
                 $.ajax({
-                    url: '/orders/' + calEvent.orderId,
+                    url: '/orders/search', // Update the URL to match the desired route
                     type: 'GET',
+                    data: {
+                        orderId: calEvent.orderId // Send any additional data if needed
+                    },
                     success: function(data) {
                         $('#orderModalBody').append('<p>Additional Detail: ' + data.trackingNumber + '</p>');
                     },
@@ -76,6 +78,7 @@
                         console.error('Error fetching order details:', error);
                     }
                 });
+
 
                 $('#orderModal').modal('show');
             },
